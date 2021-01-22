@@ -33,7 +33,7 @@ heatmap (bool, default: true)
 Launch _usv_uuv_simulator_:
     
 ```
-$ roslaunch usv_uuv_simulation wamvs_rexrov2_oceanworld.launch 
+$ roslaunch aquatic_simulator wamvs_rexrov2_oceanworld.launch 
 ```
 And the _wireless_communication node_:
     
