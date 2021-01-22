@@ -1,0 +1,6 @@
+Header header
+std_msgs/Int16 number_of_robos
+std_msgs/Int16MultiArray published
+std_msgs/Float32MultiArray dist
+std_msgs/Float32MultiArray loss
+std_msgs/Float32MultiArray out_power

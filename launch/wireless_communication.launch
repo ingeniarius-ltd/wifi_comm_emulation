@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- relation between distance and transmission_power wifi_sensitivity@ -80-->
+<!--
+
+	1dB - 10 m
+	5dB - 15 m
+	10dB - 25 m
+	15dB - 35 m
+
+-->
+
+	<arg name="rviz" default="false"/>
+	<arg name="gt_subs_namespace" default="p3d_wamv"/>
+	<arg name="repub_topic_namespace" default="robot_localization/odometry/filtered"/>
+	<arg name="wifi_sensitivity" default="-80"/> <!-- in dB --> 
+	<arg name="transmission_power" default="15"/> <!-- in dB --> 
+	<arg name="heatmap" default="True"/>
+	<arg name="robot_prefix" default="wamv"/>
+	<arg name="Lc" default="47.4"/>
+	<arg name="gain" default="3"/>
+	<arg name="random_min" default="2.5"/>
+	<arg name="random_max" default="3.5"/>
+	<arg name="frame_id" default="world"/>
+	<arg name="node_start_delay" default="1"/>
+
+    <node pkg="wifi_comm_emulation" type="wireless_communication.py" name="wireless_communication" output="screen" 
+		launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
+		<param name="gt_subs_namespace" value="$(arg gt_subs_namespace)"/>
+		<param name="repub_topic_namespace" value="$(arg repub_topic_namespace)"/>
+		<param name="wifi_sensitivity" value="$(arg wifi_sensitivity)"/> <!-- in Db --> 
+		<param name="transmission_power" value="$(arg transmission_power)"/> <!-- in Db --> 
+		<param name="heatmap" value="$(arg heatmap)" type="bool"/>
+		<param name="robot_prefix" value="$(arg robot_prefix)"/>
+		<param name="Lc" value="$(arg Lc)"/>
+		<param name="gain" value="$(arg gain)"/>
+		<param name="random_min" value="$(arg random_min)"/>
+		<param name="random_max" value="$(arg random_max)"/>
+		<param name="frame_id" value="$(arg frame_id)"/>
+    </node>
+
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find wifi_comm_emulation)/rviz/config.rviz" 
+		if="$(eval rviz == 'true')"/>
+
+</launch>
